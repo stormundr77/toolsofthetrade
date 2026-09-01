@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Note Trainer</title>
+        <link rel="stylesheet" href="../shared/style.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id = "app">
+            <div id="topControls">
+                <div id="clefSelector">
+                    <button class="clef-btn" data-clef="treble">Treble</button>
+                    <button class="clef-btn" data-clef="bass">Bass</button>
+                    <button class="clef-btn" data-clef="alto">Alto</button>
+                </div>
+
+                <div id="rangeSelector">
+                    <label>From: <span id="rangeFromLabel"></span></label>
+                    <div class="slider-track">
+                        <div class="slider-fill"></div>
+                        <input type="range" id="rangeFrom" min="0" max="8" value="0">
+                        <input type="range" id="rangeTo" min="0" max="8" value="8">
+                    </div>
+                    <label>To: <span id="rangeToLabel"></span></label>
+                </div>
+
+
+                <select id="namingSystemSelect">
+                    <option value="letters">Letters</option>
+                    <option value="solfege">Solfege</option>
+                    <option value="german_nordic"></option>
+                </select>
+            </div>
+        
+            <svg viewBox="0 0 300 150">
+                <!--Five staff lines, 10px apart, starting at y=40 -->
+                <line x1="20" y1="40" x2="280" y2="40" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="50" x2="280" y2="50" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="60" x2="280" y2="60" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="70" x2="280" y2="70" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="80" x2="280" y2="80" class="staff-line" stroke-width="1"/>
+            </svg>
+
+
+            <div id="keyboard">
+                <button class="key" data-note="C">C</button>
+                <button class="key" data-note="D">D</button>
+                <button class="key" data-note="E">E</button>
+                <button class="key" data-note="F">F</button>
+                <button class="key" data-note="G">G</button>
+                <button class="key" data-note="A">A</button>
+                <button class="key" data-note="B">B</button>
+                <div class="black-key"></div>
+                <div class="black-key"></div>
+                <div class="black-key"></div>
+                <div class="black-key"></div>
+                <div class="black-key"></div>  
+            </div>
+        
+            <div id="bottomControls">
+                <div id="labelToggle">
+                    <label><input type="checkbox" id="showLabels" checked> Show labels</label>
+                </div>
+
+                <div>
+                    <p id="scoreDisplay">Score: 0 | Streak: 0 | Accuracy: 0%</p>
+                </div>
+            </div>
+
+        <script src="script.js"></script>
+        </div>
+    </body>
+</html>
