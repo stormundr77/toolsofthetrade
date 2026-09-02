@@ -4,14 +4,6 @@ body > * {
     margin-right: auto;
 }
 
-body{
-    font-family: Inter, sans-serif;
-    background-color: var(--default-background-color);
-    color: var(--ink);
-    margin: 0;
-}
-
-
 h1{
     font-family: Inter, sans-serif;
     color: var(--ink);
@@ -20,9 +12,6 @@ h1{
     margin: 0 0 24px;
 }
 
-p{
-    font-size : 20px;
-}
 
 #app {
     height: 100vh;
