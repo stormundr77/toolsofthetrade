@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head><title>Interval Trainer</title>
+        <link rel="stylesheet" href="../shared/style.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <div id ="app">
+            <div id="topControls">
+                <div id="rangeSelector">
+                    <label><span id="rangeFromLabel">2nd</span></label>
+                    <div class="slider-track">
+                        <div class="slider-fill"></div>
+                        <input type="range" id="rangeTo" min="1" max="7" value="7">
+                    </div>
+                    <label><span id="rangeToLabel">8th</span></label>
+                </div>
+            </div>
+
+
+            <svg viewBox="0 0 300 150">
+                <!--Five staff lines, 10px apart, starting at y=40 -->
+                <line x1="20" y1="40" x2="280" y2="40" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="50" x2="280" y2="50" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="60" x2="280" y2="60" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="70" x2="280" y2="70" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="80" x2="280" y2="80" class="staff-line" stroke-width="1"/>
+            </svg>
+
+            <div id="interval-buttons">
+                <button class="interval" data-interval="2">2nd</button>
+                <button class="interval" data-interval="3">3rd</button>
+                <button class="interval" data-interval="4">4th</button>
+                <button class="interval" data-interval="5">5th</button>
+                <button class="interval" data-interval="6">6th</button>
+                <button class="interval" data-interval="7">7th</button>
+                <button class="interval" data-interval="8">8th</button>
+            </div>         
+            
+            <div id="bottomControls">
+                <div>
+                    <p id="scoreDisplay">Score: 0 | Streak: 0 | Accuracy: 0%</p>
+                </div>
+            </div>
+
+        <script src="script.js"></script>
+        </div>
+    </body>
+</html>

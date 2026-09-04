@@ -1,0 +1,51 @@
+.interval {
+    width: clamp(90px, 8vw, 160px);
+    height: clamp(60px, 6vw, 110px);
+    font-size: clamp(16px, 3.5vw, 30px);
+    font-weight: 600;
+}
+
+#app {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: clamp(10px, 3vh, 30px);
+    padding: 16px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+#interval-buttons {
+    display: flex;
+    justify-content: center;
+    gap: clamp(10px, 1.5vw, 16px);
+    margin-top: -70px;
+}
+
+#bottomControls {
+    margin-top: auto;
+}
+
+#rangeSelector {
+    min-height: 10px;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+#rangeSelector label {
+    white-space: nowrap;
+    font-size: clamp(20px, 2.5vh, 35px);
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    #interval-buttons {
+        width: min(100%, 390px);
+        flex-wrap: wrap;
+    }
+}

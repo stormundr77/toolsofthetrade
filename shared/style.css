@@ -32,37 +32,94 @@
 
 .tools-list {
     padding: 100px 80px;
+    text-align: center;
     background-color: var(--default-background-color);
 }
 
-.tools-list h2{
+.tools-list h1{
     font-family: "Inter", sans-serif;
     font-size: clamp(50px, 7vw, 70px);
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 2px;
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 7px;
     margin-top: 0;
     margin-bottom: 40px;
+    position: relative;
+    top: -30px;
 }
 
 .tools-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
 }
 
 .tools-card {
-    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     border: 1px solid var(--ink);
     background-color: transparent;
     overflow: hidden;
+    text-decoration: none;
+    color: var(--ink);
 }
 
 .tools-card:hover {
     border-color: var(--accent)
 }
 
-.tools-card h3 {
+.tools-card h2 {
     font-family: "Inter", sans-serif;
     color: var(--ink);
-    margin: 10px;
+    font-size: clamp(14px, 1.4vw, 20px);
+    margin: 12px;
+}
+
+.tool-preview {
+    width: 100%;
+    overflow: hidden;
+}
+
+.tool-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.tools-card-coming-soon .tool-preview {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.tools-card-coming-soon .tool-preview img {
+    width: 150px;
+    height: auto;
+    filter: grayscale(30%) saturate(70%);
+}
+
+.tools-card-coming-soon {
+    border-color: #8a8175;
+}
+
+.tools-card-coming-soon h2 {
+    color: #8a8175;
+}
+
+.tools-card-coming-soon:hover {
+    border-color: #8a8175;
+}
+
+.contact {
+    text-align: center;
+}
+
+footer {
+    text-align: center;
 }
 
 button {
@@ -106,6 +163,93 @@ button:hover {
 
 .clef-btn:hover, .key:hover {
     background-color: var(--accent);
+}
+
+.slider-track {
+    position: relative;
+    height: 24px;
+    width: clamp(90px, 25vw, 280px);
+}
+
+.slider-track input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    transform: translateY(-50%);
+    margin: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.slider-track input[type="range"]::-webkit-slider-runnable-track {
+    background: transparent;
+    height: 4px;
+}
+
+.slider-track input[type="range"]::-moz-range-track {
+    background:transparent;
+    height: 4px;
+}
+
+.slider-track::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #ccc;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.slider-track input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    pointer-events: auto;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ink);
+    cursor: pointer;
+    margin-top: -2px;
+    transition: transform 0.15s ease;
+}
+
+.slider-track input[type="range"]:active::-webkit-slider-thumb {
+    transform: scale(2.5);
+}
+
+.slider-track input[type="range"]::-moz-range-thumb {
+    pointer-events: auto;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ink);
+    cursor: pointer;
+    border: none;
+    margin-top: -2px;
+    transition: transform var(--transition);
+}
+
+.slider-track input[type="range"]:active::-moz-range-thumb {
+    transform: scale(2.5);
+}
+
+.slider-fill {
+    position: absolute;
+    top: 50%;
+    height: 4px;
+    background: var(--ink);
+    transform: translateY(-50%);
+    pointer-events: none;
+    border-radius: 2px;
 }
 
 .staff-line {
@@ -177,21 +321,21 @@ body.flash-wrong {
     background-color: #FF6F00;
 }
 
-.clef-btn, .key, #keyboard, #namingSystemSelect, .tools-card {
+.clef-btn, .key, #keyboard, #namingSystemSelect, .tools-card, .interval {
     border-radius: var(--radius);
     box-shadow: var(--shadow);
 }
 
-.clef-btn, .key, .tools-card {
+.clef-btn, .key, .tools-card, .interval {
     transition: transform var(--transition), box-shadow var(--transition);
 }
 
-.clef-btn:hover, .key:hover, .tools-card:hover {
+.clef-btn:hover, .key:hover, .tools-card:hover, .interval:hover {
     transform: translateY(var(--hover-lift));
     box-shadow: var(--shadow-hover);
 }
 
-label, .clef-btn, .key, #namingSystemSelect {
+label, .clef-btn, .key, #namingSystemSelect, .interval {
     letter-spacing: 0.01em;
 }
 
