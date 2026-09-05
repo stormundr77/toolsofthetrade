@@ -54,8 +54,7 @@ h1{
     gap: 15px;
 }
 
-#
-Selector label {
+#rangeSelector label {
     white-space: nowrap;
     font-size: clamp(10px, 1.8vh, 16px);
 }
@@ -93,4 +92,20 @@ svg {
     align-items: center;
     justify-content: center;
     gap: 15px;
+}
+
+#mobileRangeSelector {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    #rangeSelector {
+        display: none;
+    }
+
+    #mobileRangeSelector {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 }

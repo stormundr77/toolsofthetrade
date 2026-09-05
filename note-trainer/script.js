@@ -51,8 +51,81 @@ function resetRangeSliders() {
     document.getElementById("rangeTo").min = 0;
     document.getElementById("rangeTo").max = maxIndex;
     document.getElementById("rangeTo").value = toIndex; 
+
+    populateMobileRangeSelectors();
+   
+    document.getElementById("mobileRangeFrom").value = fromIndex;
+    document.getElementById("mobileRangeTo").value = toIndex;
+
+    updateMobileRangeOptions();
 }
 
+function populateMobileRangeSelectors() {
+    const range = clefs[currentClef].range;
+    const fromSelect = document.getElementById("mobileRangeFrom");
+    const toSelect = document.getElementById("mobileRangeTo");
+
+    fromSelect.innerHTML = "";
+    toSelect.innerHTML = "";
+
+    range.forEach(function(note, index) {
+        const fromOption=document.createElement("option");
+        fromOption.value = index;
+        fromOption.textContent = note;
+
+        const toOption = document.createElement("option");
+        toOption.value = index;
+        toOption.textContent = note;
+
+        fromSelect.appendChild(fromOption);
+        toSelect.appendChild(toOption);
+    });
+}
+
+function updateMobileRangeOptions() {
+    const fromSelect = document.getElementById("mobileRangeFrom");
+    const toSelect = document.getElementById("mobileRangeTo");
+
+    const fromIndex = parseInt(fromSelect.value);
+    const toIndex = parseInt(toSelect.value);
+    
+    Array.from(fromSelect.options).forEach(function(option){
+        option.hidden = parseInt(option.value) > toIndex;
+    });
+   
+    Array.from(toSelect.options).forEach(function(option){
+        option.hidden = parseInt(option.value) < fromIndex;
+    });
+   
+}
+
+document.getElementById("mobileRangeFrom").addEventListener("change", function() {
+    const fromSelect = document.getElementById("mobileRangeFrom");
+    const toSelect = document.getElementById("mobileRangeTo");
+
+    if(parseInt(fromSelect.value) > parseInt(toSelect.value)) {
+        fromSelect.value = toSelect.value;
+    }
+
+    document.getElementById("rangeFrom").value = fromSelect.value;
+
+    updateSliderFill();
+    updateMobileRangeOptions();
+});
+
+document.getElementById("mobileRangeTo").addEventListener("change", function() {
+    const fromSelect = document.getElementById("mobileRangeFrom");
+    const toSelect = document.getElementById("mobileRangeTo");
+
+    if(parseInt(fromSelect.value) > parseInt(toSelect.value)) {
+        fromSelect.value = toSelect.value;
+    }
+
+    document.getElementById("rangeTo").value = toSelect.value;
+
+    updateSliderFill();
+    updateMobileRangeOptions();
+});
 
 function updateClefGlyph () {
     clefGlyph.textContent = clefGlyphs[currentClef];

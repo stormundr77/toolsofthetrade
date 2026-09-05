@@ -48,4 +48,8 @@
         width: min(100%, 390px);
         flex-wrap: wrap;
     }
+    
+    .slider-track input[type="range"] {
+        height: 30px;
+    }
 }

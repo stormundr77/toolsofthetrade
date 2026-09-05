@@ -93,7 +93,7 @@ function newQuestion(){
     notes.forEach(function(note) {
         note.remove();
     });
-    const maxInterval = 7
+    const maxInterval = parseInt(document.getElementById("rangeTo").value);
     const interval = newInterval(maxInterval);
     correctInterval = interval + 1;
     const startingStep = newStartingStep(interval);

@@ -321,16 +321,55 @@ body.flash-wrong {
     background-color: #FF6F00;
 }
 
-.clef-btn, .key, #keyboard, #namingSystemSelect, .tools-card, .interval {
+#home-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--ink);
+    background-color: transparent;
+    border: 1px solid var(--ink);
+    cursor: pointer;
+}
+
+.home-icon::before {
+    content: "";
+    position: absolute;
+    left: -4px;
+    top: -7px;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 8px solid var(--ink);
+}
+
+.home-icon {
+    position: relative;
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: var(--ink);
+    top: 3px;
+}
+
+.clef-btn, .key, #keyboard, #namingSystemSelect, .tools-card, .interval, #home-button {
     border-radius: var(--radius);
     box-shadow: var(--shadow);
 }
 
-.clef-btn, .key, .tools-card, .interval {
+.clef-btn, .key, .tools-card, .interval, #home-button {
     transition: transform var(--transition), box-shadow var(--transition);
 }
 
-.clef-btn:hover, .key:hover, .tools-card:hover, .interval:hover {
+.clef-btn:hover, .key:hover, .tools-card:hover, .interval:hover, #home-button:hover {
     transform: translateY(var(--hover-lift));
     box-shadow: var(--shadow-hover);
 }
