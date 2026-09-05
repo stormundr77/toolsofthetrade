@@ -213,9 +213,10 @@ button:hover {
 .slider-track input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     pointer-events: auto;
-    width: 20px;
-    height: 20px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
+    border: 12px solid transparent;
     background: var(--ink);
     cursor: pointer;
     margin-top: -2px;
@@ -228,12 +229,12 @@ button:hover {
 
 .slider-track input[type="range"]::-moz-range-thumb {
     pointer-events: auto;
-    width: 20px;
-    height: 20px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: var(--ink);
     cursor: pointer;
-    border: none;
+    border: 12px solid transparent;
     margin-top: -2px;
     transition: transform var(--transition);
 }
