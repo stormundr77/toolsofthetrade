@@ -216,7 +216,6 @@ button:hover {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    border: 12px solid transparent;
     background: var(--ink);
     cursor: pointer;
     margin-top: -2px;
@@ -234,7 +233,7 @@ button:hover {
     border-radius: 50%;
     background: var(--ink);
     cursor: pointer;
-    border: 12px solid transparent;
+    border: none;
     margin-top: -2px;
     transition: transform var(--transition);
 }
