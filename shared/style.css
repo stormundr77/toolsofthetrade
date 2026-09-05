@@ -366,5 +366,6 @@ label, .clef-btn, .key, #namingSystemSelect, .interval {
 @media (max-width: 600px) {
     .slider-track input[type="range"] {
         height: 30px;
+        pointer-events: auto
     }
 }
