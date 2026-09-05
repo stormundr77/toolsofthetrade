@@ -54,7 +54,8 @@ h1{
     gap: 15px;
 }
 
-#rangeSelector label {
+#
+Selector label {
     white-space: nowrap;
     font-size: clamp(10px, 1.8vh, 16px);
 }

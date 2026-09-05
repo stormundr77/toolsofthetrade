@@ -182,7 +182,7 @@ button:hover {
     height: 4px;
     transform: translateY(-50%);
     margin: 0;
-    pointer-events: none;
+    pointer-events: auto;
     z-index: 1;
 }
 
@@ -361,11 +361,4 @@ label, .clef-btn, .key, #namingSystemSelect, .interval {
   animation: notePopWrong 0.3s ease;
   transform-box: fill-box;
   transform-origin: center;
-}
-
-@media (max-width: 600px) {
-    .slider-track input[type="range"] {
-        height: 30px;
-        pointer-events: auto
-    }
 }
