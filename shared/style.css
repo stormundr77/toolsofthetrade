@@ -362,3 +362,9 @@ label, .clef-btn, .key, #namingSystemSelect, .interval {
   transform-box: fill-box;
   transform-origin: center;
 }
+
+@media (max-width: 600px) {
+    .slider-track input[type="range"] {
+        height: 30px;
+    }
+}
