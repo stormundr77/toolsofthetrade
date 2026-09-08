@@ -232,12 +232,15 @@ function drawOneLedgerLine(step) {
 }
 
 const svg = document.querySelector("svg");
+const noteGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
 const note = document.createElementNS("http://www.w3.org/2000/svg", "text");
+noteGroup.setAttribute("class", "note-group");
 note.setAttribute("x", 142);
 note.setAttribute("font-family", "Bravura");
 note.setAttribute("font-size", 38);
 note.setAttribute("class", "note-head");
-svg.appendChild(note);
+noteGroup.appendChild(note);
+svg.appendChild(noteGroup);
 note.textContent="\uE0A2";
 
 const clefGlyph = document.createElementNS("http://www.w3.org/2000/svg", "text");
@@ -330,9 +333,9 @@ keyButtons.forEach(function(button) {
             streak = streak + 1;
             totalQ = totalQ + 1;
             console.log("Correct!");
-            note.classList.add("pop-correct");
+            noteGroup.classList.add("pop-correct");
             setTimeout(function() {
-                note.classList.remove("pop-correct");
+                noteGroup.classList.remove("pop-correct");
                 newNote();
             }, 300);
         }
@@ -341,9 +344,9 @@ keyButtons.forEach(function(button) {
             streak = 0;
             totalQ = totalQ + 1;
             console.log("Wrong - the correct answer was " + correctLetter);
-            note.classList.add("pop-wrong");
+            noteGroup.classList.add("pop-wrong");
             setTimeout(function() {
-                note.classList.remove("pop-wrong");
+                noteGroup.classList.remove("pop-wrong");
                 newNote();
             }, 300);
         }

@@ -394,17 +394,15 @@ label, .clef-btn, .key, #namingSystemSelect, .interval {
     100% { transform: scale(1); }
 }
 
-.note-head.pop-correct {
+.note-group.pop-correct {
     animation: notePopCorrect 0.3s ease;
-    transform-origin: 142px 142px;
-    /*transform-box: fill-box;
-    transform-origin: center;*/
+    transform-origin: center;
+    transform-box: fill-box;  
 }
 
-.note-head.pop-wrong {
-  animation: notePopWrong 0.3s ease;
-  transform-origin: 142px 142px;
-  /*transform-box: fill-box;
-  transform-origin: center;*/
+.note-group.pop-wrong {
+    animation: notePopWrong 0.3s ease;
+    transform-origin: center;
+    transform-box: fill-box;
 }
 
