@@ -137,11 +137,6 @@ button:hover {
     box-shadow: var(--shadow-hover);
 }
 
-button:focus {
-    outline: none;
-    background-color: transparent;
-}
-
 .clef-btn {
     font-family: "Bravura";
     width: 50px; 
@@ -167,6 +162,10 @@ button:focus {
 }
 
 .clef-btn:hover, .key:hover {
+    background-color: var(--accent);
+}
+
+.clef-btn:active, .key:active {
     background-color: var(--accent);
 }
 
@@ -405,4 +404,10 @@ label, .clef-btn, .key, #namingSystemSelect, .interval {
   animation: notePopWrong 0.3s ease;
   transform-box: fill-box;
   transform-origin: center;
+}
+
+@media (hover:none) {
+    .clef-btn:hover, .key:hover {
+        background-color: transparent;
+    }
 }
