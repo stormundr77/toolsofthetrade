@@ -137,6 +137,11 @@ button:hover {
     box-shadow: var(--shadow-hover);
 }
 
+button:focus {
+    outline: none;
+    background-color: transparent;
+}
+
 .clef-btn {
     font-family: "Bravura";
     width: 50px; 
