@@ -132,11 +132,6 @@ button {
     transition: transform var(--transition), box-shadow var(--transition);
 }
 
-button:hover {
-    transform: translateY(var(--hover-lift));
-    box-shadow: var(--shadow-hover);
-}
-
 .clef-btn {
     font-family: "Bravura";
     width: 50px; 
@@ -159,16 +154,6 @@ button:hover {
 .clef-btn[data-clef="alto"] .glyph {
     font-size: clamp(21px, 5.2vh, 35px);
     transform: translate(0, 0);
-}
-
-.clef-btn:hover, .key:hover {
-    background-color: var(--accent);
-}
-
-.clef-btn:active, .key:active {
-    background-color: var(--accent);
-    transform: translateY(var(--hover-lift));
-    box-shadow: var(--shadow-hover);
 }
 
 .slider-track {
@@ -291,7 +276,6 @@ button:hover {
     color: var(--ink);
     font-size: clamp(18px, 2vw, 24px);
     cursor: pointer;
-    transition: background-color 0.15s ease;
 }
 
 .black-key {
@@ -372,10 +356,24 @@ body.flash-wrong {
 }
 
 .clef-btn, .key, .tools-card, .interval, #home-button {
-    transition: transform var(--transition), box-shadow var(--transition);
+    transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition);
 }
 
-.clef-btn:hover, .key:hover, .tools-card:hover, .interval:hover, #home-button:hover {
+@media (hover:hover) {
+    .clef-btn:hover, .key:hover, .interval:hover, #home-button:hover {
+        background-color: var(--accent);
+        transform: translateY(var(--hover-lift));
+        box-shadow: var(--shadow-hover);
+    }
+}
+
+.clef-btn:active, .key:active, .interval:active, #home-button:active {
+    background-color: var(--accent);
+    transform: translateY(var(--hover-lift));
+    box-shadow: var(--shadow-hover);
+}
+
+.tools-card:hover {
     transform: translateY(var(--hover-lift));
     box-shadow: var(--shadow-hover);
 }
@@ -408,8 +406,3 @@ label, .clef-btn, .key, #namingSystemSelect, .interval {
   transform-origin: center;
 }
 
-@media (hover:none) {
-    .clef-btn:hover, .key:hover {
-        background-color: transparent;
-    }
-}
