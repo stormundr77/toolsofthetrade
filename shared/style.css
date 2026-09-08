@@ -396,13 +396,13 @@ label, .clef-btn, .key, #namingSystemSelect, .interval {
 
 .note-head.pop-correct {
     animation: notePopCorrect 0.3s ease;
-    transform-box: fill-box;
-    transform-origin: center;
+    /*transform-box: fill-box;
+    transform-origin: center;*/
 }
 
 .note-head.pop-wrong {
   animation: notePopWrong 0.3s ease;
-  transform-box: fill-box;
-  transform-origin: center;
+  /*transform-box: fill-box;
+  transform-origin: center;*/
 }
 
