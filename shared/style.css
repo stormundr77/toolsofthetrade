@@ -27,7 +27,7 @@
     --radius: 8px;
     --transition: 0.15s ease;
 
-    --hover-life: -2px;
+    --hover-lift: -2px;
 } 
 
 .tools-list {
@@ -167,6 +167,8 @@ button:hover {
 
 .clef-btn:active, .key:active {
     background-color: var(--accent);
+    transform: translateY(var(--hover-lift));
+    box-shadow: var(--shadow-hover);
 }
 
 .slider-track {
