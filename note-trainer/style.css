@@ -23,15 +23,7 @@ h1{
     align-items: center;
 }
 
-#topControls, #bottomControls {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: clamp(12px, 3vw, 32px);
-    max-height: 8vh;
-    overflow: hidden;
-}
+
 
 #clefSelector {
     min-height: 25px;
@@ -98,7 +90,7 @@ svg {
     display: none;
 }
 
-@media (max-width: 600px) {
+@media (pointer: coarse) {
     #rangeSelector {
         display: none;
     }

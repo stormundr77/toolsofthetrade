@@ -4,6 +4,8 @@ let streak = 0;
 let correctInterval;
 let highernote;
 let lowernote;
+let higherNoteGroup;
+let lowerNoteGroup;
 const minstep = 0;
 const maxstep = 8;
 const intervalNames = ["", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
@@ -32,11 +34,11 @@ intervalButtons.forEach(function(button) {
             streak = streak + 1;
             totalQ = totalQ + 1;
             console.log("Correct!");
-            highernote.classList.add("pop-correct");
-            lowernote.classList.add("pop-correct");
+            higherNoteGroup.classList.add("pop-correct");
+            lowerNoteGroup.classList.add("pop-correct");
             setTimeout(function() {
-                highernote.classList.remove("pop-correct");
-                lowernote.classList.remove("pop-correct");
+                higherNoteGroup.classList.remove("pop-correct");
+                lowerNoteGroup.classList.remove("pop-correct");
                 newQuestion();
             }, 300);
         }
@@ -45,11 +47,11 @@ intervalButtons.forEach(function(button) {
             streak = 0;
             totalQ = totalQ + 1;
             console.log("Wrong - the correct answer was " + correctInterval);
-            highernote.classList.add("pop-wrong");
-            lowernote.classList.add("pop-wrong")
+            higherNoteGroup.classList.add("pop-wrong");
+            lowerNoteGroup.classList.add("pop-wrong");
             setTimeout(function() {
-                highernote.classList.remove("pop-wrong");
-                lowernote.classList.remove("pop-wrong");
+                higherNoteGroup.classList.remove("pop-wrong");
+                lowerNoteGroup.classList.remove("pop-wrong");
                 newQuestion();
             }, 300);
         }
@@ -69,12 +71,21 @@ function newStartingStep(stepsApart) {
 }
 
 function drawInterval (startingStep, stepsApart) {
+    higherNoteGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    higherNoteGroup.setAttribute("class", "note-group");
+    svg.appendChild(higherNoteGroup);
+
+    
+    lowerNoteGroup = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    lowerNoteGroup.setAttribute("class", "note-group");
+    svg.appendChild(lowerNoteGroup);
+
     highernote = document.createElementNS("http://www.w3.org/2000/svg", "text");
     highernote.setAttribute("x", 170);
     highernote.setAttribute("font-family", "Bravura");
     highernote.setAttribute("font-size", 38);
     highernote.setAttribute("class", "note-head");
-    svg.appendChild(highernote);
+    higherNoteGroup.appendChild(highernote);
     highernote.textContent="\uE0A2";
     highernote.setAttribute ("y", stepsToY(startingStep + stepsApart));
     
@@ -83,7 +94,7 @@ function drawInterval (startingStep, stepsApart) {
     lowernote.setAttribute("font-family", "Bravura");
     lowernote.setAttribute("font-size", 38);
     lowernote.setAttribute("class", "note-head");
-    svg.appendChild(lowernote);
+    lowerNoteGroup.appendChild(lowernote);
     lowernote.textContent="\uE0A2";
     lowernote.setAttribute  ("y" , stepsToY(startingStep)); 
 }
