@@ -2,6 +2,7 @@ let currentClef = "treble";
 let score = 0;
 let totalQ = 0;
 let streak = 0;
+let guideTimer;
 const bottomLineY = 80;
 const halfSpacing = 5;
 
@@ -10,6 +11,42 @@ const clefGlyphs = {
     bass: "\uE062",
     alto: "\uE05C"
 };
+
+const guideLetters = {
+    treble: ["F", "A", "C", "E"],
+    bass: ["A", "C", "E", "G"],
+    alto: ["G", "B", "D", "F"]
+};
+
+function drawGuide() {
+    const letters = guideLetters[currentClef];
+    let y = 79;
+    letters.forEach(function(letter, index) {
+        const guideLetter = document.createElementNS("http://www.w3.org/2000/svg", "text");
+        guideLetter.setAttribute("class", "guide-letter");
+        guideLetter.setAttribute("font-size", 11);
+        guideLetter.setAttribute("fill", "var(--ink)");        
+        guideLetter.setAttribute("x", 282);
+        guideLetter.setAttribute("y", y);
+        guideLetter.textContent = letter;
+        svg.appendChild(guideLetter);
+        y -= 10;
+    });
+
+    clearTimeout(guideTimer);
+    guideTimer = setTimeout(removeGuide, 3000);
+}
+
+function removeGuide() {
+    const guideLetters = document.querySelectorAll(".guide-letter");
+    guideLetters.forEach(function(letter) {
+        letter.classList.add("fade-out");
+
+        setTimeout(function() {
+            letter.remove();
+        }, 150);
+    });
+}
 
 const clefButtons = document.querySelectorAll(".clef-btn");
 clefButtons.forEach(function(button){
@@ -39,6 +76,7 @@ const defaultRanges = {
     bass: { from: "E2", to: "C4" },
     alto: { from: "D3", to: "B4" }
 };
+
 
 function resetRangeSliders() {
     const maxIndex = clefs[currentClef].range.length -1;
@@ -332,7 +370,6 @@ keyButtons.forEach(function(button) {
             score = score + 1;
             streak = streak + 1;
             totalQ = totalQ + 1;
-            console.log("Correct!");
             noteGroup.classList.add("pop-correct");
             setTimeout(function() {
                 noteGroup.classList.remove("pop-correct");
@@ -340,10 +377,10 @@ keyButtons.forEach(function(button) {
             }, 300);
         }
         else {
+            drawGuide();
             flash("flash-wrong");
             streak = 0;
             totalQ = totalQ + 1;
-            console.log("Wrong - the correct answer was " + correctLetter);
             noteGroup.classList.add("pop-wrong");
             setTimeout(function() {
                 noteGroup.classList.remove("pop-wrong");
