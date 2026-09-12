@@ -28,7 +28,7 @@ function drawGuide() {
         guideLetter.setAttribute("fill", "var(--ink)");        
         guideLetter.setAttribute("x", 282);
         guideLetter.setAttribute("y", y);
-        guideLetter.textContent = letter;
+        guideLetter.textContent = noteNamingSystems[currentNamingSystem][letter];
         svg.appendChild(guideLetter);
         y -= 10;
     });
@@ -109,11 +109,11 @@ function populateMobileRangeSelectors() {
     range.forEach(function(note, index) {
         const fromOption=document.createElement("option");
         fromOption.value = index;
-        fromOption.textContent = note;
+        fromOption.textContent = translateNoteName(note);
 
         const toOption = document.createElement("option");
         toOption.value = index;
-        toOption.textContent = note;
+        toOption.textContent = translateNoteName(note);
 
         fromSelect.appendChild(fromOption);
         toSelect.appendChild(toOption);
@@ -342,6 +342,7 @@ namingSystemSelect.addEventListener("change", function() {
     setDropdownLabels("short");
     updateRangeLabels();
     updateSliderFill();
+    resetRangeSliders();
     if (showLabelsCheckbox.checked) {
         updateKeyLabels();
     }
