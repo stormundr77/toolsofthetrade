@@ -251,6 +251,16 @@ button {
     fill: var(--ink);
 }
 
+.note-stem {
+    stroke: var(--ink);
+    stroke-width: 2;
+}
+
+.note-beam{
+    stroke: var(--ink);
+    stroke-width: 4;
+}
+
 .clef-glyph {
     fill: var(--ink);
 }

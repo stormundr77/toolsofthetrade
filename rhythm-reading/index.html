@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Rhythm Reading</title>
+        <link rel="stylesheet" href="../shared/style.css">
+       <!-- <link rel="stylesheet" href="style.css"> -->
+    </head>
+
+    <body>
+        <div id ="app">
+            <!--<div id="topControls">
+                <div id="complexitySelector">
+                    <label><span id="complexityFromLabel">Simple</span></label>
+                    <div class="slider-track">
+                        <div class="slider-fill"></div>
+                        <input type="range" id="rangeTo" min="1" max="7" value="7">
+                    </div>
+                    <label><span id="complexityToLabel">Complex</span></label>
+                </div>
+            </div> -->
+
+
+            <svg viewBox="0 0 300 150">
+                <!--Five staff lines, 10px apart, starting at y=40 -->
+                <line x1="20" y1="40" x2="280" y2="40" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="50" x2="280" y2="50" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="60" x2="280" y2="60" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="70" x2="280" y2="70" class="staff-line" stroke-width="1"/>
+                <line x1="20" y1="80" x2="280" y2="80" class="staff-line" stroke-width="1"/>
+            </svg>   
+            
+            <div id="settingsCheckboxes">
+                <label><input type="checkbox" id="quarterNote" checked>Quarter Notes</label>
+                <label><input type="checkbox" id="halfNote" checked>Half Notes</label>
+                <label><input type="checkbox" id="dottedHalfNote" checked>Dotted Half Notes</label>
+                <label><input type="checkbox" id="dottedQuarterEighth" checked>Dotted Quarter and Eighth Figure</label>
+                <label><input type="checkbox" id="pairEighths" checked>Pair of Eighth Notes</label>
+                <label><input type="checkbox" id="eighthNoteTriplets" checked>Eighth Note Triplets</label>
+                <label><input type="checkbox" id="sixteenthNotes" checked>Sixteenth Notes</label>
+            </div>
+            
+            <div id="bottomControls">
+                <p id="scoreDisplay">Score: 0 | Streak: 0 | Accuracy: 0%</p>
+
+                <a id="home-button" href="../index.html" aria-label="Home"><span class="home-icon"></span></a>
+            </div>
+        
+        <script src="../shared/rhythm.js"></script>
+        <script src="script.js"></script>
+        </div>
+    </body>
+</html>
