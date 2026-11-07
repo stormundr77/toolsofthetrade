@@ -3,6 +3,9 @@ const rangeTo = document.querySelector("#rangeTo");
 let questionValue;
 const questionDisplay = document.querySelector("#questionDisplay");
 let attemptCounter;
+let streak = 0;
+let score = 0;
+let totalQ = 0;
 
 newRhythmButton.addEventListener("click", function() { 
     generateNewRhythm();
@@ -184,17 +187,25 @@ function questionGenerator (questionTargets){
 function checkAnswer(answer){
    if (answer === questionValue){
         flash("flash-correct");
+        score += 1;
+        totalQ += 1;
+        streak += 1;
         setTimeout(function(){
         generateNewRhythm();
         }, 300);
+        updateScoreDisplay();
    }
    else {
     flash("flash-wrong");
     attemptCounter += 1;
+    streak = 0;
+    updateScoreDisplay();
     if (attemptCounter === 3) {
+        totalQ += 1;
         setTimeout(function(){
         generateNewRhythm();
         }, 300);
+        updateScoreDisplay();
     }
    }
 }
@@ -204,6 +215,11 @@ function flash(className) {
     setTimeout(function() {
         document.body.classList.remove(className);
     }, 300);
+}
+
+function updateScoreDisplay() {
+    const accuracy = totalQ === 0 ? 0 : parseInt(score/totalQ * 100);
+    document.getElementById("scoreDisplay").textContent = "Score: " + score + " | Streak: " + streak + " | Accuracy: " + accuracy + "%";
 }
 
 function beatDivisionChecker(rhythmArray) {
