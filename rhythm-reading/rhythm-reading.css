@@ -1,0 +1,32 @@
+#newRhythmButton {
+    width: 280px; 
+    height: 80px;
+    font-size: 28px;
+}
+
+#newRhythmButtonSection {
+   display: flex;
+   justify-content: center;
+}
+
+#complexitySelector {
+    display:flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.interactive-area {
+    cursor: pointer;
+    transition: fill var(--transition);
+}
+
+#questionDisplay {
+    text-align: center;
+    font-size: clamp(14px, 4vw, 22px);
+}
+
+@media (hover:hover) {
+    .interactive-area:hover {
+        fill: color-mix(in srgb, var(--accent) 75%, transparent);
+    }
+}

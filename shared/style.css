@@ -258,7 +258,7 @@ button {
 
 .note-beam{
     stroke: var(--ink);
-    stroke-width: 4;
+    stroke-width: 3.7;
 }
 
 .clef-glyph {
@@ -365,24 +365,24 @@ body.flash-wrong {
     top: 3px;
 }
 
-.clef-btn, .key, #keyboard, #namingSystemSelect, .tools-card, .interval, #home-button {
+.clef-btn, .key, #keyboard, #namingSystemSelect, .tools-card, .interval, #home-button, #newRhythmButton {
     border-radius: var(--radius);
     box-shadow: var(--shadow);
 }
 
-.clef-btn, .key, .tools-card, .interval, #home-button {
+.clef-btn, .key, .tools-card, .interval, #home-button, #newRhythmButton {
     transition: transform var(--transition), box-shadow var(--transition), background-color var(--transition);
 }
 
 @media (hover:hover) {
-    .clef-btn:hover, .key:hover, .interval:hover, #home-button:hover {
+    .clef-btn:hover, .key:hover, .interval:hover, #home-button:hover, #newRhythmButton:hover {
         background-color: var(--accent);
         transform: translateY(var(--hover-lift));
         box-shadow: var(--shadow-hover);
     }
 }
 
-.clef-btn:active, .key:active, .interval:active, #home-button:active {
+.clef-btn:active, .key:active, .interval:active, #home-button:active, #newRhythmButton:active {
     background-color: var(--accent);
     transform: translateY(var(--hover-lift));
     box-shadow: var(--shadow-hover);
