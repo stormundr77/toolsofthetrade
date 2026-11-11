@@ -6,10 +6,17 @@ let attemptCounter;
 let streak = 0;
 let score = 0;
 let totalQ = 0;
+const touchInput = window.matchMedia("(hover: none) and (pointer: coarse)");
+let touchArea;
+let upperTriangle;
+let lowerTriangle;
+let selectedArea = null;
+let isDragging = false;
+let pointerStartX = 0;
+let interactiveAreas = [];
 
-newRhythmButton.addEventListener("click", function() { 
-    generateNewRhythm();
-});
+
+newRhythmButton.addEventListener("click", generateNewRhythm);
 
 function generateNewRhythm() {
     attemptCounter = 0;
@@ -25,8 +32,17 @@ function generateNewRhythm() {
     
     renderRhythm(rhythm);
 
-    const interactiveAreas = getInteractiveAreas(settings, rhythm);
+    interactiveAreas = getInteractiveAreas(settings, rhythm);
     drawInteractiveAreas(interactiveAreas);
+
+    if (touchInput.matches) {
+        svg.appendChild(touchArea);
+        svg.appendChild(upperTriangle);
+        svg.appendChild(lowerTriangle);
+
+        selectedArea = interactiveAreas[0];
+        positionTouchSelector(selectedArea);
+    }
 
     console.log("Interactive areas:", interactiveAreas);
 }
@@ -90,18 +106,151 @@ function drawInteractiveAreas(interactiveAreas) {
 
     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         rect.classList.add("interactive-area");
+        rect.dataset.start = area.start;
         rect.setAttribute("x", area.left);
         rect.setAttribute("y", viewBox.y);
         rect.setAttribute("width", area.right - area.left);
         rect.setAttribute("height", viewBox.height);
         rect.setAttribute("fill", "transparent");
-        rect.setAttribute("pointer-events", "all");
+        rect.setAttribute("pointer-events", touchInput.matches ? "none" : "all");
         svg.appendChild(rect);
-        rect.addEventListener("click", function() {
-            checkAnswer(area.start);
-        });
+        if(!touchInput.matches){
+            rect.addEventListener("click", function() {
+                checkAnswer(area.start);
+            });
+        }
     });
 }
+
+function createTouchSelector (){
+    const viewBox = svg.viewBox.baseVal;
+    touchArea = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    touchArea.classList.add("touch-selector");
+    touchArea.setAttribute("fill", "transparent");
+    touchArea.setAttribute("y", viewBox.y);
+    touchArea.setAttribute("height", viewBox.height);
+    touchArea.setAttribute("x", viewBox.x);
+    touchArea.setAttribute("width", viewBox.width);
+    touchArea.addEventListener("pointerdown", handleTouchStart);
+    touchArea.addEventListener("pointermove", handleTouchMove);
+    touchArea.addEventListener("pointerup", handleTouchEnd);
+    touchArea.addEventListener("pointercancel", handleTouchCancel);
+    touchArea.setAttribute("pointer-events", "all");
+    svg.appendChild(touchArea);
+
+    
+    upperTriangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+    upperTriangle.style.fill = "var(--ink)";
+    upperTriangle.style.stroke = "var(--ink)";
+    upperTriangle.setAttribute("stroke-linejoin", "round");
+    upperTriangle.classList.add("touch-selector");
+    upperTriangle.setAttribute("pointer-events", "none");
+    svg.appendChild(upperTriangle);
+
+    lowerTriangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+    lowerTriangle.style.fill = "var(--ink)";
+    lowerTriangle.style.stroke = "var(--ink)";
+    lowerTriangle.setAttribute("stroke-linejoin", "round");
+    lowerTriangle.classList.add("touch-selector");
+    lowerTriangle.setAttribute("pointer-events", "none");
+    svg.appendChild(lowerTriangle);
+}
+
+if (touchInput.matches) {
+    createTouchSelector();
+}
+
+function positionTouchSelector(area) {
+    let leftX = area.left;
+    let rightX = area.right;
+
+    if (rightX-leftX <= 10) {
+        const makeup = (20 - (rightX-leftX)) / 2;
+        leftX = leftX - makeup;
+        rightX = rightX + makeup; 
+    }
+
+    document.querySelectorAll(".interactive-area.selected").forEach(element => {element.classList.remove("selected");});
+    const selectedRect = document.querySelector(`.interactive-area[data-start="${area.start}"]`);
+    selectedRect.classList.add("selected");
+
+    upperTriangle.setAttribute("points", `${leftX},0 ${(leftX+rightX)/2},20 ${rightX},0`);
+    lowerTriangle.setAttribute("points", `${leftX},100 ${(leftX+rightX)/2},80 ${rightX},100`);
+}
+
+function handleTouchStart(event){
+    const svgRect = svg.getBoundingClientRect();
+    const viewBox = svg.viewBox.baseVal;
+    
+    const pointerX = (event.clientX - svgRect.left) / svgRect.width * viewBox.width;
+
+    touchArea.setPointerCapture(event.pointerId);
+
+    isDragging = false;
+    pointerStartX = event.clientX;
+
+    selectedArea = interactiveAreas.reduce((closest, area) => {
+        const center = (area.left + area.right) / 2;
+        const closestCenter = (closest.left + closest.right) / 2;
+
+        return Math.abs(pointerX - center) < Math.abs(pointerX - closestCenter)
+            ? area
+            : closest;
+    });
+
+    positionTouchSelector(selectedArea);
+}
+
+function handleTouchMove(event) {
+    console.log(
+    "Moving:",
+    event.clientX,
+    "Captured:",
+    touchArea.hasPointerCapture(event.pointerId)
+    );
+
+    const movement = Math.abs(event.clientX - pointerStartX);
+
+    if (!isDragging && movement > 8) {
+        isDragging = true;
+    }
+
+    if (isDragging) {
+        const svgRect = svg.getBoundingClientRect();
+        const viewBox = svg.viewBox.baseVal;
+
+        const pointerX = (event.clientX - svgRect.left) / svgRect.width * viewBox.width;
+
+        selectedArea = interactiveAreas.reduce((closest, area) => {
+            const center = (area.left + area.right) / 2;
+            const closestCenter = (closest.left + closest.right) / 2;
+
+            return Math.abs(pointerX - center) < Math.abs(pointerX - closestCenter)
+                ? area
+                : closest;
+        });
+
+        positionTouchSelector(selectedArea);
+    }
+}
+
+function handleTouchEnd(event) {
+    if (!isDragging) {
+        checkAnswer(selectedArea.start);
+    }
+
+    isDragging = false;
+
+    touchArea.releasePointerCapture(event.pointerId);
+}
+
+function handleTouchCancel(event) {
+    console.log("POINTER CANCELLED");
+
+    isDragging = false;
+    touchArea.releasePointerCapture(event.pointerId);
+}
+
 
 function getVisualX(position, rhythm){
     for (let rhythmindex = 0; rhythmindex < rhythm.length; rhythmindex ++) {

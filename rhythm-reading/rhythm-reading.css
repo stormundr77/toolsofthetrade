@@ -25,6 +25,14 @@
     font-size: clamp(14px, 4vw, 22px);
 }
 
+.touch-selector {
+    touch-action: none;
+}
+
+.interactive-area.selected {
+    fill: color-mix(in srgb, var(--accent) 75%, transparent); 
+}
+
 @media (hover:hover) {
     .interactive-area:hover {
         fill: color-mix(in srgb, var(--accent) 75%, transparent);
