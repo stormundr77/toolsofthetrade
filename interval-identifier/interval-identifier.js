@@ -9,6 +9,8 @@ let lowerNoteGroup;
 const minstep = 0;
 const maxstep = 8;
 const intervalNames = ["", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
+const staffNotes = ["E4", "F4", "G4", "A4", "B4","C5", "D5", "E5", "F5"];
+const speakerButton = document.getElementById("speakerButton");
 
 
 
@@ -99,7 +101,7 @@ function drawInterval (startingStep, stepsApart) {
     lowernote.setAttribute  ("y" , stepsToY(startingStep)); 
 }
 
-function newQuestion(){
+async function newQuestion(){
     const notes = document.querySelectorAll(".note-head");
     notes.forEach(function(note) {
         note.remove();
@@ -108,7 +110,13 @@ function newQuestion(){
     const interval = newInterval(maxInterval);
     correctInterval = interval + 1;
     const startingStep = newStartingStep(interval);
+    const lowerPitch = staffNotes[startingStep];
+    const higherPitch = staffNotes[startingStep + interval];
     drawInterval(startingStep, interval);
+    audioEngine.playNote(lowerPitch);
+    await new Promise(resolve => setTimeout(resolve, 800));
+    audioEngine.playNote(higherPitch);
+
 }
 
 
@@ -154,6 +162,21 @@ function flash(className) {
         document.body.classList.remove(className);
     }, 300);
 }
+
+speakerButton.addEventListener("click", async () => {
+    const muteStatus = await audioEngine.toggleMute();
+
+    const speakerIcon = speakerButton.querySelector(".speaker-icon");
+
+    speakerIcon.classList.toggle("muted", muteStatus);
+    speakerIcon.classList.toggle("unmuted", !muteStatus);
+
+    if (muteStatus) {
+        speakerButton.setAttribute("aria-label", "Unmute sound");
+    } else {
+        speakerButton.setAttribute("aria-label", "Mute sound");
+    }
+});
 
 
 newQuestion();

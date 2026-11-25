@@ -5,6 +5,7 @@ let streak = 0;
 let guideTimer;
 const bottomLineY = 80;
 const halfSpacing = 5;
+const speakerButton = document.getElementById("speakerButton");
 
 const clefGlyphs = {
     treble: "\uE050",
@@ -294,6 +295,7 @@ function newNote(){
    const span = toIndex - fromIndex + 1;
    const randomIndex = fromIndex + Math.floor(Math.random() * span)
    const chosenNote = clefs[currentClef].range[randomIndex];
+   audioEngine.playNote(chosenNote);
    correctLetter = chosenNote[0];
    note.setAttribute("y", noteNameToY(chosenNote, currentClef));
    drawLedgerLines(chosenNote, currentClef);
@@ -416,6 +418,21 @@ function updateScoreDisplay() {
     const accuracy = totalQ === 0 ? 0 : parseInt(score/totalQ * 100);
     document.getElementById("scoreDisplay").textContent = "Score: " + score + " | Streak: " + streak + " | Accuracy: " + accuracy + "%";
 }
+
+speakerButton.addEventListener("click", async () => {
+    const muteStatus = await audioEngine.toggleMute();
+
+    const speakerIcon = speakerButton.querySelector(".speaker-icon");
+
+    speakerIcon.classList.toggle("muted", muteStatus);
+    speakerIcon.classList.toggle("unmuted", !muteStatus);
+
+    if (muteStatus) {
+        speakerButton.setAttribute("aria-label", "Unmute sound");
+    } else {
+        speakerButton.setAttribute("aria-label", "Mute sound");
+    }
+});
 
 updateClefGlyph();
 resetRangeSliders();

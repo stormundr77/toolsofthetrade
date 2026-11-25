@@ -4,8 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Note Trainer</title>
-        <link rel="stylesheet" href="../shared/style.css">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="../shared/shared-style.css">
+        <link rel="stylesheet" href="note-detective-style.css">
     </head>
     <body>
         <div id = "app">
@@ -72,13 +72,17 @@
                 <div>
                     <p id="scoreDisplay">Score: 0 | Streak: 0 | Accuracy: 0%</p>
                 </div>
-
-                <a id="home-button" href="../index.html" aria-label="Home"><span class="home-icon"></span></a>
+                
+                <button id="speakerButton" type="button" aria-label="Unmute sound">
+                    <span class="speaker-icon muted"></span>
+                </button>
+                <a id="home-button" href="../home-page.html" aria-label="Home"><span class="home-icon"></span></a>
            
             </div>
         
         <script src="../shared/slider.js"></script>
-        <script src="script.js"></script>
+        <script src="../shared/audio-engine.js"></script>
+        <script src="note-detective.js"></script>
         </div>
     </body>
 </html>
