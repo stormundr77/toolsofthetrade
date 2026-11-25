@@ -108,9 +108,9 @@ function drawInteractiveAreas(interactiveAreas) {
         rect.classList.add("interactive-area");
         rect.dataset.start = area.start;
         rect.setAttribute("x", area.left);
-        rect.setAttribute("y", viewBox.y);
+        rect.setAttribute("y", 3);
         rect.setAttribute("width", area.right - area.left);
-        rect.setAttribute("height", viewBox.height);
+        rect.setAttribute("height", 94);
         rect.setAttribute("fill", "transparent");
         rect.setAttribute("pointer-events", touchInput.matches ? "none" : "all");
         svg.appendChild(rect);
@@ -139,20 +139,24 @@ function createTouchSelector (){
     svg.appendChild(touchArea);
 
     
-    upperTriangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-    upperTriangle.style.fill = "var(--ink)";
-    upperTriangle.style.stroke = "var(--ink)";
+    upperTriangle = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    upperTriangle.setAttribute("fill", "none");
+    upperTriangle.setAttribute("stroke", "var(--ink)");
+    upperTriangle.setAttribute("stroke-width", "3.5");
+    upperTriangle.setAttribute("stroke-linecap", "round");
     upperTriangle.setAttribute("stroke-linejoin", "round");
-    upperTriangle.classList.add("touch-selector");
     upperTriangle.setAttribute("pointer-events", "none");
+    upperTriangle.classList.add("touch-selector");
     svg.appendChild(upperTriangle);
 
-    lowerTriangle = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
-    lowerTriangle.style.fill = "var(--ink)";
-    lowerTriangle.style.stroke = "var(--ink)";
+    lowerTriangle = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    lowerTriangle.setAttribute("fill", "none");
+    lowerTriangle.setAttribute("stroke", "var(--ink)");
+    lowerTriangle.setAttribute("stroke-width", "3.5");
+    lowerTriangle.setAttribute("stroke-linecap", "round");
     lowerTriangle.setAttribute("stroke-linejoin", "round");
-    lowerTriangle.classList.add("touch-selector");
     lowerTriangle.setAttribute("pointer-events", "none");
+    lowerTriangle.classList.add("touch-selector");
     svg.appendChild(lowerTriangle);
 }
 
@@ -164,8 +168,8 @@ function positionTouchSelector(area) {
     let leftX = area.left;
     let rightX = area.right;
 
-    if (rightX-leftX <= 10) {
-        const makeup = (20 - (rightX-leftX)) / 2;
+    if (rightX-leftX <= 8) {
+        const makeup = (16 - (rightX-leftX)) / 2;
         leftX = leftX - makeup;
         rightX = rightX + makeup; 
     }
@@ -174,8 +178,8 @@ function positionTouchSelector(area) {
     const selectedRect = document.querySelector(`.interactive-area[data-start="${area.start}"]`);
     selectedRect.classList.add("selected");
 
-    upperTriangle.setAttribute("points", `${leftX},0 ${(leftX+rightX)/2},20 ${rightX},0`);
-    lowerTriangle.setAttribute("points", `${leftX},100 ${(leftX+rightX)/2},80 ${rightX},100`);
+    upperTriangle.setAttribute("d", `M ${leftX} 5 L ${(leftX+rightX)/2} 17 L ${rightX} 5`);
+    lowerTriangle.setAttribute("d", `M ${leftX} 95 L ${(leftX+rightX)/2} 83 L ${rightX} 95`);
 }
 
 function handleTouchStart(event){

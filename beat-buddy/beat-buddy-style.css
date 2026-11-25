@@ -17,7 +17,6 @@
 
 .interactive-area {
     cursor: pointer;
-    transition: fill var(--transition);
 }
 
 #questionDisplay {
@@ -30,10 +29,14 @@
 }
 
 .interactive-area.selected {
-    fill: color-mix(in srgb, var(--accent) 75%, transparent); 
+    fill: color-mix(in srgb, var(--accent) 22%, transparent); 
 }
 
 @media (hover:hover) {
+    .interactive-area {
+        transition: fill var(--transition);
+    }
+
     .interactive-area:hover {
         fill: color-mix(in srgb, var(--accent) 75%, transparent);
     }
