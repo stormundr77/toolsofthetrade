@@ -10,6 +10,8 @@ const minstep = 0;
 const maxstep = 8;
 const intervalNames = ["", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"];
 const staffNotes = ["E4", "F4", "G4", "A4", "B4","C5", "D5", "E5", "F5"];
+audioEngine.preloadNotes(staffNotes)
+    .catch(error => console.error("Failed to preload piano samples:", error));
 const speakerButton = document.getElementById("speakerButton");
 
 

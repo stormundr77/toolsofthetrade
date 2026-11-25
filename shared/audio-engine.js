@@ -3,7 +3,7 @@ const audioEngine = (() => {
 let muted = true;
 let audioContext;
 const samples = new Map();
-let loadingPromise = null;
+const samplePromises = new Map();
 
 const pitchClasses = {
     C: 0,
@@ -44,14 +44,21 @@ function getSampleName (midiNumber) {
     return noteName + octave + ".ogg";
 }
 
-async function loadSamples() {
-    if (loadingPromise) {
-        return loadingPromise;
-    }
-
+async function loadSamples(notes) {
     const promises = [];
 
-    for (let midiNumber = 28; midiNumber <= 84; midiNumber++) {
+    for (const note of notes) {
+        const midiNumber = getMidiNote(note);
+
+        if (samples.has(midiNumber)) {
+            continue;
+        }
+
+        if (samplePromises.has(midiNumber)) {
+            promises.push(samplePromises.get(midiNumber));
+            continue;
+        }
+
         const sampleName = getSampleName(midiNumber);
         const samplePath = `../shared/audio/piano/${sampleName}`;
 
@@ -66,19 +73,25 @@ async function loadSamples() {
             .then(data => audioContext.decodeAudioData(data))
             .then(buffer => {
                 samples.set(midiNumber, buffer);
+            })
+            .catch(error => {
+                samplePromises.delete(midiNumber);
+                throw error;
             });
 
+        samplePromises.set(midiNumber, promise);
         promises.push(promise);
     }
 
-    loadingPromise = Promise.all(promises);
+    await Promise.all(promises);
+}
 
-    try {
-        await loadingPromise;
-    } catch (error) {
-        loadingPromise = null;
-        throw error;
+async function preloadNotes(notes) {
+    if (!audioContext) {
+        audioContext = new AudioContext();
     }
+
+    await loadSamples(notes);
 }
 
 async function initializeAudio() {
@@ -88,10 +101,6 @@ async function initializeAudio() {
 
     if (audioContext.state === "suspended") {
         await audioContext.resume();
-    }
-
-    if (!loadingPromise) {
-        await loadSamples();
     }
 }
 
@@ -119,7 +128,7 @@ function playNote(note) {
     const buffer = samples.get(midiNumber);
 
     if (!buffer) {
-        console.warn(`Sample not found fot ${note}`);
+        console.warn(`Sample not found for ${note}`);
         return;
     }
 
@@ -132,6 +141,7 @@ function playNote(note) {
     return {
         toggleMute,
         playNote,
+        preloadNotes,
         isMuted: () => muted
     };
 })();

@@ -58,6 +58,8 @@ clefButtons.forEach(function(button){
     button.appendChild(glyphSpan);
     button.addEventListener("click", function() {
         currentClef = button.dataset.clef;
+        audioEngine.preloadNotes(clefs[currentClef].range)
+            .catch(error => console.error("Failed to preload piano samples:", error));
         newNote();
         resetRangeSliders();
         updateClefGlyph();
@@ -71,6 +73,9 @@ const clefs = {
   bass:   { bottomLineNote: "G2", range: ["E1","F1","G1","A1","B1","C2","D2","E2","F2","G2","A2","B2","C3","D3","E3","F3","G3","A3","B3","C4","D4","E4"] },
   alto:   { bottomLineNote: "F3", range: ["D2","E2","F2","G2","A2","B2","C3","D3","E3","F3","G3","A3","B3","C4","D4","E4","F4","G4","A4","B4","C5","D5"] }
 };
+
+audioEngine.preloadNotes(clefs.treble.range)
+    .catch(error => console.error("Failed to preload piano samples:", error));
 
 const defaultRanges = {
     treble: { from: "C4", to: "A5" },
