@@ -4,7 +4,6 @@ let muted = true;
 let audioContext;
 const samples = new Map();
 const samplePromises = new Map();
-
 const pitchClasses = {
     C: 0,
     D: 2,
@@ -73,6 +72,7 @@ async function loadSamples(notes) {
             .then(data => audioContext.decodeAudioData(data))
             .then(buffer => {
                 samples.set(midiNumber, buffer);
+                debugDisplay.textContent += ` | Loaded: ${sampleName}`;
             })
             .catch(error => {
                 samplePromises.delete(midiNumber);
@@ -95,6 +95,10 @@ async function preloadNotes(notes) {
 }
 
 async function initializeAudio() {
+    if ("audioSession" in navigator) {
+        navigator.audioSession.type = "playback";
+    }
+
     if (!audioContext) {
         audioContext = new AudioContext();
     }
